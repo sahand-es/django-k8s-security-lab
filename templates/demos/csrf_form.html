@@ -1,0 +1,15 @@
+{% extends "demos/base.html" %}
+
+{% block content %}
+  <h1>{{ title }}</h1>
+  <p>Account owner: {{ account.owner }}</p>
+  <p>Balance: {{ account.balance }}</p>
+  <form method="post">
+    {% csrf_token %}
+    <label>
+      Amount
+      <input name="amount" type="number" value="10">
+    </label>
+    <button type="submit">Transfer</button>
+  </form>
+{% endblock %}

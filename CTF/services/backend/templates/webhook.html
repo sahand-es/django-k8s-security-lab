@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Integrations — Console{% endblock %}
+{% block page_title %}Integrations <span class="crumb">/ Webhook Tester</span>{% endblock %}
+{% block content %}
+<div class="card">
+    <h1>Webhook Tester</h1>
+    <p class="lead">Send a request to an integration endpoint to verify connectivity. The platform forwards your request server-side.</p>
+    <form id="webhook-form">
+        <div class="field">
+            <label>Target URL</label>
+            <input type="text" name="url" placeholder="https://partner.example.com/webhook" required>
+        </div>
+        <div class="grid2" style="gap:1rem;">
+            <div class="field">
+                <label>Method</label>
+                <select name="method">
+                    <option>GET</option>
+                    <option>POST</option>
+                    <option>PUT</option>
+                    <option>PATCH</option>
+                </select>
+            </div>
+            <div class="field">
+                <label>Headers (JSON)</label>
+                <textarea name="headers" placeholder='{"Content-Type": "application/json"}'></textarea>
+            </div>
+        </div>
+        <button type="submit" class="primary">Send request</button>
+    </form>
+</div>
+<div class="card">
+    <h2>Response</h2>
+    <div class="term" id="out"><span class="dim">// no request sent yet</span></div>
+</div>
+<script>
+document.getElementById("webhook-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    let headers = {};
+    try { headers = JSON.parse(fd.get("headers") || "{}"); } catch (_) {}
+    const res = await fetch("/api/webhooks/test", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: fd.get("url"), method: fd.get("method"), headers })
+    });
+    const text = await res.text();
+    document.getElementById("out").innerHTML =
+        '<span class="prompt">' + res.status + '</span> ' + (res.statusText || "") + '\n' + text.replace(/</g,"&lt;");
+});
+</script>
+{% endblock %}

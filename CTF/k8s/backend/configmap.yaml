@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-config
+  namespace: saas-app
+data:
+  DEBUG: "0"
+  ALLOWED_HOSTS: "*"
+  JWT_SECRET: "changeme123"
+  CSRF_TRUSTED_ORIGINS: "http://ctf.localhost,http://localhost:8000"
+  SQLITE_PATH: "/app/db/db.sqlite3"
+  FLAG_F2: "FLAG{sw4gg3r_wh0_g03s_th3r3}"
+  FLAG_F3: "FLAG{fl4g_3ndp01nt_f0und_1t}"
+  FLAG_F4: "FLAG{p4th_tr4v3rs4l_1s_cl4ss1c}"
+  FLAG_F5: "FLAG{1d0r_t3n4nt_l34k}"
+  FLAG_F6: "FLAG{jwt_4lg_n0n3_0r_w34k_s3cr3t}"
+  FLAG_F9: "FLAG{c0mm4nd_1nj3ct10n_1s_st1ll_4l1v3}"

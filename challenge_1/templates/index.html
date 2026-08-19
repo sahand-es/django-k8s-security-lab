@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CloudOps · Support Desk</title>
+  <link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">H</div>
+        <div class="brand-text">
+          <div class="brand-name">CloudOps</div>
+          <div class="brand-sub">Support Desk</div>
+        </div>
+      </div>
+      <div class="identity">
+        <div class="avatar" id="avatar">IN</div>
+        <span id="user">loading</span>
+        <strong>intern</strong>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="card">
+          <p class="card-eyebrow">Assigned queue</p>
+          <h2 id="queue-name">Loading…</h2>
+          <div class="meta-row">
+            <span class="label">Squad</span>
+            <span class="value" id="queue-squad">-</span>
+          </div>
+          <div class="meta-row">
+            <span class="label">Queue ID</span>
+            <span class="value" id="queue-id">-</span>
+          </div>
+          <p id="queue-note" class="note"></p>
+        </div>
+
+        <div class="card">
+          <p class="card-eyebrow">Your tickets</p>
+          <div id="ticket-list" class="ticket-list">
+            <div class="ticket-item">
+              <span class="ttitle" style="color:var(--muted)">Loading…</span>
+            </div>
+          </div>
+          <a class="hop-link" href="/back/?next=/">← Back to dashboard</a>
+        </div>
+      </aside>
+
+      <main class="main">
+        <section class="panel">
+          <div class="panel-header">
+            <h3 class="panel-title">
+              <span class="icon">⌕</span> Ticket search
+            </h3>
+            <span class="panel-count" id="search-count">0 results</span>
+          </div>
+          <div class="search-row">
+            <input id="search-input" class="search-input" type="search" value="the platform" placeholder="Search ticket titles…" maxlength="40">
+            <button id="search-button" class="btn">Search</button>
+          </div>
+          <div id="search-output" class="output" style="margin-top:16px"></div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header">
+            <h3 class="panel-title">
+              <span class="icon">☰</span> Ticket detail
+            </h3>
+          </div>
+          <div class="select-row">
+            <select id="ticket-select" class="ticket-select"></select>
+            <button id="preview-button" class="btn btn-secondary">Open</button>
+          </div>
+          <div id="ticket-output" class="output"></div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script src="/static/app.js"></script>
+</body>
+</html>

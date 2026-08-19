@@ -1,0 +1,50 @@
+{% extends "demos/base.html" %}
+
+{% block content %}
+  <h1>Part 1: Django Safety Rails</h1>
+  <p>Use these local-only demos to show classic web vulnerabilities and the Django protections developers bypass when they reintroduce them.</p>
+
+  <h2>SQL injection</h2>
+  <ul>
+    <li><a href="/part1/sql/safe/?q=public">Safe ORM search</a></li>
+    <li><a href="/part1/sql/vulnerable/?q=public">Vulnerable raw search</a></li>
+    <li><a href="/part1/sql/fixed/?q=public">Fixed parameterized search</a></li>
+  </ul>
+
+  <h2>XSS</h2>
+  <ul>
+    <li><a href="/part1/xss/upload/">Upload a report with trusted and escaped previews</a></li>
+    <li><a href="/part1/xss/safe/?body=%3Cscript%3Ealert(1)%3C/script%3E">Render: safe escaped comment</a></li>
+    <li><a href="/part1/xss/vulnerable/?body=%3Cscript%3Ealert(1)%3C/script%3E">Render: vulnerable trusted comment</a></li>
+    <li><a href="/part1/xss/fixed/?body=%3Cscript%3Ealert(1)%3C/script%3E">Render: fixed escaped comment</a></li>
+  </ul>
+
+  <h2>CSRF</h2>
+  <ul>
+    <li><a href="/part1/csrf/safe/">Protected form</a></li>
+    <li><a href="/part1/csrf/vulnerable/">Vulnerable endpoint</a></li>
+    <li><a href="/part1/csrf/attack-page/">Attack page against vulnerable endpoint</a></li>
+    <li><a href="/part1/csrf/fixed/">Fixed form</a></li>
+  </ul>
+
+  <h2>Clickjacking</h2>
+  <ul>
+    <li><a href="/part1/clickjacking/protected/">Protected page</a></li>
+  </ul>
+
+  <h2>Open redirect</h2>
+  <ul>
+    <li><a href="/part1/redirect/vulnerable/?next=https://example.com">Vulnerable redirect</a></li>
+    <li><a href="/part1/redirect/fixed/?next=https://example.com">Fixed redirect</a></li>
+  </ul>
+
+  <h2>IDOR bridge</h2>
+  <ul>
+    <li><a href="/part1/idor/reference/">Object authorization snippet</a></li>
+  </ul>
+
+  <h2>Part 2</h2>
+  <ul>
+    <li><a href="/part2/integration/">Integration mistakes</a></li>
+  </ul>
+{% endblock %}

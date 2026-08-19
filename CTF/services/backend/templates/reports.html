@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Audit Reports — Console{% endblock %}
+{% block page_title %}Audit <span class="crumb">/ Reports</span>{% endblock %}
+{% block content %}
+<div class="card">
+    <h1>Audit Reports</h1>
+    <p class="lead">Download archived report files for your organization.</p>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr><th>Title</th><th>File</th><th>Status</th><th></th></tr>
+            </thead>
+            <tbody>
+                {% for r in reports %}
+                <tr>
+                    <td>{{ r.title }}</td>
+                    <td><code style="color:var(--text-muted);font-family:'JetBrains Mono',monospace;font-size:0.82rem;">report_{{ r.pk }}.txt</code></td>
+                    <td><span class="chip ok">Ready</span></td>
+                    <td><button class="btn sm" data-report="{{ r.pk }}" class="dl">Download</button></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="card">
+    <h2>File viewer</h2>
+    <p class="lead">Contents of the selected report file.</p>
+    <div class="term" id="out"><span class="dim">// select a report to view its contents</span></div>
+</div>
+<script>
+document.querySelectorAll("button[data-report]").forEach(btn => btn.addEventListener("click", async () => {
+    const id = btn.dataset.report;
+    const res = await fetch(`/api/reports/download?file=report_${id}.txt`);
+    document.getElementById("out").textContent = await res.text();
+}));
+</script>
+{% endblock %}

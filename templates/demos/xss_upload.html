@@ -1,0 +1,22 @@
+{% extends "demos/base.html" %}
+
+{% block content %}
+  <h1>{{ title }}</h1>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label>
+      Report file
+      <input type="file" name="upload">
+    </label>
+    <button type="submit">Upload + preview</button>
+  </form>
+
+  <h2>Uploaded files</h2>
+  <ul>
+    {% for f in files %}
+      <li><a href="/part1/xss/preview/?name={{ f }}">{{ f }}</a></li>
+    {% empty %}
+      <li>No uploaded files yet.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

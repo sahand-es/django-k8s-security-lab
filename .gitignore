@@ -1,0 +1,13 @@
+.DS_Store
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+db.sqlite3
+*.sqlite3
+*.zip
+
+demo_files/xss_uploads/
+CTF/services/backend/compiled/
+CTF/services/backend/staticfiles/
+challenge_2/deploy/run/.deploy_token

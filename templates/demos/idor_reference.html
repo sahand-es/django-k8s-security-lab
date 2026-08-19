@@ -1,0 +1,14 @@
+{% extends "demos/base.html" %}
+
+{% block content %}
+  <h1>IDOR / object authorization bridge</h1>
+  <p>Django can identify the user, but it cannot infer which business objects that user may access.</p>
+
+  <h2>Vulnerable shape</h2>
+  <pre>{{ vulnerable }}</pre>
+
+  <h2>Safer shape</h2>
+  <pre>{{ fixed }}</pre>
+
+  <p>Example object for discussion: {{ document.title }} owned by {{ document.owner }}.</p>
+{% endblock %}

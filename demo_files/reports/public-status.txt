@@ -1,0 +1,3 @@
+Public status report
+
+All demo services are green.

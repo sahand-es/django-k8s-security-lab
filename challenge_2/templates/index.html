@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CloudOps · Incident Room</title>
+  <link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="status-dot pulse"></span>
+      <div class="brand-text">
+        <div class="brand-name">CLOUDOPS</div>
+        <div class="brand-sub">Incident Room · lab-cluster</div>
+      </div>
+    </div>
+    <div class="responder">
+      <div class="avatar" id="avatar">IN</div>
+      <div class="responder-text">
+        <span class="responder-role">ON-CALL SHADOW</span>
+        <strong id="user">loading</strong>
+      </div>
+    </div>
+  </header>
+
+  <div class="shell">
+    <div class="incident-banner">
+      <div class="sev-tag">SEV-2</div>
+      <div class="banner-body">
+        <div class="banner-title">Shadow rotation — service diagnostics &amp; webhook verification</div>
+        <div class="banner-meta" id="shift">Loading shift…</div>
+      </div>
+      <span class="live-tag"><span class="live-dot"></span>LIVE</span>
+    </div>
+
+    <section class="status-strip">
+      <div class="strip-head">SERVICE STATUS</div>
+      <div class="strip-chips" id="target-chips"></div>
+    </section>
+
+    <main class="main">
+      <section class="tool-card">
+        <div class="tool-head">
+          <span class="tool-index">01</span>
+          <div class="tool-title">
+            <span class="tool-kicker">RUNBOOK</span>
+            <h2>Service diagnostic</h2>
+          </div>
+          <span class="tool-tag">preview: full output</span>
+        </div>
+        <div class="cmd-line">
+          <span class="prompt">$</span>
+          <span class="cmd-name">oncall diag --target</span>
+          <select id="target-select" class="target-select"></select>
+          <button id="diag-button" class="btn btn-run">Run diagnostic</button>
+        </div>
+        <p class="tool-note">
+          Runs the ops health check against the chosen service and returns its output.
+        </p>
+        <div id="diag-output" class="readout"></div>
+      </section>
+
+      <section class="tool-card">
+        <div class="tool-head">
+          <span class="tool-index">02</span>
+          <div class="tool-title">
+            <span class="tool-kicker">WEBHOOK</span>
+            <h2>Endpoint verification</h2>
+          </div>
+          <span class="tool-tag">sent from the backend</span>
+        </div>
+        <div class="cmd-line">
+          <span class="prompt">$</span>
+          <span class="cmd-name">oncall hook --url</span>
+          <input id="url-input" class="url-input" type="url" value="https://example.com/hook" placeholder="https://…" spellcheck="false">
+          <button id="url-button" class="btn btn-secondary">Send test</button>
+        </div>
+        <p class="tool-note">
+          The backend fetches the URL for you and returns the response body.
+        </p>
+        <div id="url-output" class="readout"></div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <span class="foot-item">role: <strong id="role">-</strong></span>
+      <span class="foot-item">region: <strong>tehran-1</strong></span>
+      <span class="foot-item">rotation: <strong>18:00–00:00 IRST</strong></span>
+    </footer>
+  </div>
+  <script src="/static/app.js"></script>
+</body>
+</html>

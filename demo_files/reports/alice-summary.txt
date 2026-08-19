@@ -1,0 +1,5 @@
+Alice summary report
+
+Project: payments-preview
+Status: healthy
+Cost: 42 demo credits

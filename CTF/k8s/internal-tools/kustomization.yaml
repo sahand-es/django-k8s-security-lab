@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+# Note: requires the internal-tools namespace (kind-setup phase) and a
+# RoleBinding in ctf-secrets granting `secret-reader` to
+# system:serviceaccount:internal-tools:backend-sa (documented in kind-setup RBAC).
+resources:
+  - backend-sa.yaml
+  - admin-panel-deployment.yaml
+  - admin-panel-service.yaml

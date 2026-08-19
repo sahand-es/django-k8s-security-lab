@@ -1,0 +1,26 @@
+services:
+  backend:
+    build: ./services/backend
+    image: ctf/backend:latest
+    ports:
+      - "8123:8000"
+    environment:
+      DEBUG: "0"
+      ALLOWED_HOSTS: "*"
+      JWT_SECRET: changeme123
+      SQLITE_PATH: /app/db.sqlite3
+      CSRF_TRUSTED_ORIGINS: "${CSRF_TRUSTED_ORIGINS:-http://localhost:8000,http://ctf.localhost}"
+      FLAG_F2: "${FLAG_F2:-flag_swagger}"
+      FLAG_F3: "${FLAG_F3:-flag_debug_endpoint}"
+      FLAG_F4: "${FLAG_F4:-flag_path_traversal}"
+      FLAG_F5: "${FLAG_F5:-flag_idor_report}"
+      FLAG_F6: "${FLAG_F6:-flag_jwt_admin}"
+      FLAG_F9: "${FLAG_F9:-flag_command_injection}"
+
+  admin-panel:
+    build: ./services/admin-panel
+    image: ctf/admin-panel:latest
+    ports:
+      - "5080:5000"
+    environment:
+      FLAG_F7: "${FLAG_F7:-flag_internal_admin}"

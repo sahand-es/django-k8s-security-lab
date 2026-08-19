@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Django Security Lab</title>
+    <style>
+      body { font-family: system-ui, sans-serif; line-height: 1.5; max-width: 960px; margin: 32px auto; padding: 0 20px; }
+      nav a { margin-right: 12px; }
+      code, pre { background: #f4f4f4; border-radius: 4px; }
+      code { padding: 2px 4px; }
+      pre { padding: 12px; overflow: auto; }
+      table { border-collapse: collapse; width: 100%; margin-top: 16px; }
+      th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+      .warning { border-left: 4px solid #b42318; padding: 8px 12px; background: #fff4f2; }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="/part1/">Part 1</a>
+      <a href="/part2/integration/">Part 2</a>
+      <a href="/part1/sql/safe/">SQL</a>
+      <a href="/part1/xss/upload/">XSS</a>
+      <a href="/part1/csrf/safe/">CSRF</a>
+      <a href="/part1/idor/reference/">IDOR bridge</a>
+    </nav>
+    {% block content %}{% endblock %}
+  </body>
+</html>

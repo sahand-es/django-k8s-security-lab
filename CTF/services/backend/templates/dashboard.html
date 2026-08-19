@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — Console{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+{% block content %}
+<div class="grid2">
+    <div class="card">
+        <h1>Organization</h1>
+        <p class="lead">Your workspace membership and plan.</p>
+        <div class="grid3">
+            <div class="stat"><div class="k">Org</div><div class="v" style="font-size:1.1rem;">{{ current_org.name }}</div></div>
+            <div class="stat"><div class="k">Plan</div><div class="v accent" style="font-size:1.1rem;">Enterprise</div></div>
+            <div class="stat"><div class="k">Seats</div><div class="v">12 / 25</div></div>
+        </div>
+    </div>
+    <div class="card">
+        <h1>System status</h1>
+        <p class="lead">Recent platform metrics.</p>
+        <div class="grid3">
+            <div class="stat"><div class="k">Reports</div><div class="v">{{ reports|length }}</div></div>
+            <div class="stat"><div class="k">Integrations</div><div class="v accent">7</div></div>
+            <div class="stat"><div class="k">Status</div><div class="v" style="font-size:1.1rem;color:#9ef0b0;">Healthy</div></div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h2>Activity</h2>
+    <p class="lead">Live platform heartbeat — the backend exercises its internal + cluster access.</p>
+    <div class="feed" id="feed">
+        <div class="empty">loading…</div>
+    </div>
+</div>
+
+<div class="card">
+    <h2>Audit Reports</h2>
+    <p class="lead">Compliance and audit reports available to your organization.</p>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr><th>Title</th><th>Scope</th><th>Status</th><th></th></tr>
+            </thead>
+            <tbody>
+                {% for r in reports %}
+                <tr>
+                    <td><a class="rowlink" href="/api/orgs/{{ current_org.pk }}/reports/{{ r.pk }}">{{ r.title }}</a></td>
+                    <td>{{ current_org.name }}</td>
+                    <td><span class="chip ok">Ready</span></td>
+                    <td><a class="btn sm" href="/reports">Open</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- TODO: remove /api/internal/flag and /api/schema/swagger-ui/ before prod -->
+<script>
+async function refreshFeed() {
+    try {
+        const res = await fetch("/api/events");
+        const data = await res.json();
+        const evs = data.events || [];
+        const feed = document.getElementById("feed");
+        if (!evs.length) { feed.innerHTML = '<div class="empty">no activity yet</div>'; return; }
+        feed.innerHTML = evs.map(e => {
+            const t = (e.created_at || "").slice(11, 19);
+            const cls = (e.kind || "").toLowerCase();
+            return '<div class="feed-row"><span class="feed-time">' + t + '</span><span class="chip ' + cls + '">' + (e.kind || "") + '</span><span class="feed-msg">' + (e.message || "").replace(/</g, "&lt;") + '</span></div>';
+        }).join("");
+    } catch (_) {}
+}
+refreshFeed();
+setInterval(refreshFeed, 5000);
+</script>
+{% endblock %}

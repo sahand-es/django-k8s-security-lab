@@ -1,0 +1,12 @@
+services:
+  royaleops:
+    build: .
+    image: support-desk-challenge:latest
+    ports:
+      - "${PORT:-8000}:8000"
+    environment:
+      TEAM_FLAGS: "${TEAM_FLAGS:-flag_one,flag_two,flag_three}"
+      DJANGO_SECRET_KEY: "${DJANGO_SECRET_KEY:-local-compose-secret}"
+      DEBUG: "${DEBUG:-0}"
+      ALLOWED_HOSTS: "${ALLOWED_HOSTS:-*}"
+      SQLITE_PATH: "/tmp/royaleops.sqlite3"

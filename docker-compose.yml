@@ -1,0 +1,22 @@
+services:
+  challenge1:
+    build: ./challenge_1
+    image: django-security-lab/challenge1:latest
+    ports:
+      - "${C1_PORT:-8001}:8000"
+    environment:
+      TEAM_FLAGS: "${C1_FLAGS:-flag_sqli,flag_idor,flag_redirect}"
+      DJANGO_SECRET_KEY: "${C1_SECRET_KEY:-challenge-one-local-secret}"
+      DEBUG: "${DEBUG:-0}"
+      ALLOWED_HOSTS: "${ALLOWED_HOSTS:-*}"
+
+  challenge2:
+    build: ./challenge_2
+    image: django-security-lab/challenge2:latest
+    ports:
+      - "${C2_PORT:-8002}:8000"
+    environment:
+      TEAM_FLAGS: "${C2_FLAGS:-flag_rce,flag_ssrf}"
+      DJANGO_SECRET_KEY: "${C2_SECRET_KEY:-challenge-two-local-secret}"
+      DEBUG: "${DEBUG:-0}"
+      ALLOWED_HOSTS: "${ALLOWED_HOSTS:-*}"

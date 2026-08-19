@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: saas-app
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: internal-tools
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ctf-secrets
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: escape-zone

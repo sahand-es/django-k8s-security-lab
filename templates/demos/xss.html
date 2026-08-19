@@ -1,0 +1,15 @@
+{% extends "demos/base.html" %}
+
+{% block content %}
+  <h1>{{ title }}</h1>
+  <form method="get">
+    <label>
+      Comment body
+      <input name="body" value="{{ request.GET.body }}" size="60">
+    </label>
+    <button type="submit">Render</button>
+  </form>
+
+  <h2>Rendered comment</h2>
+  <div class="warning">{{ body }}</div>
+{% endblock %}

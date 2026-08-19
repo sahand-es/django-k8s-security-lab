@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Network Diagnostics — Console{% endblock %}
+{% block page_title %}Network <span class="crumb">/ Diagnostics</span>{% endblock %}
+{% block content %}
+<div class="card">
+    <h1>Network Diagnostics</h1>
+    <p class="lead">Run a connectivity check against a host from the platform edge.</p>
+    <form id="ping-form">
+        <div class="field">
+            <label>Target host</label>
+            <input type="text" name="host" placeholder="example.com or 10.0.0.4" required>
+        </div>
+        <button type="submit" class="primary">Run ping</button>
+    </form>
+</div>
+<div class="card">
+    <h2>Output</h2>
+    <div class="term" id="out"><span class="prompt">$</span><span class="dim"> awaiting target…</span></div>
+</div>
+<script>
+document.getElementById("ping-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const host = new FormData(e.target).get("host");
+    const term = document.getElementById("out");
+    term.innerHTML = '<span class="prompt">$</span> ping -c 2 ' + host.replace(/</g,"&lt;") + '\n';
+    const res = await fetch("/api/diag/ping", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ host })
+    });
+    const data = await res.json();
+    term.innerHTML += (data.output || data.error || "").replace(/</g,"&lt;");
+});
+</script>
+{% endblock %}

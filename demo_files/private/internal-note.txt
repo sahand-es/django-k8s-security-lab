@@ -1,0 +1,3 @@
+Fake internal note
+
+This file is outside the report directory and exists only for the path traversal demo.

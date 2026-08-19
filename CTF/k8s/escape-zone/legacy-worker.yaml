@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: legacy-worker
+  namespace: escape-zone
+  labels:
+    app: legacy-worker
+spec:
+  automountServiceAccountToken: false
+  nodeName: ctf-worker2
+  initContainers:
+    - name: place-flag
+      image: ctf/escape-zone:latest
+      imagePullPolicy: IfNotPresent
+      command:
+        - sh
+        - -c
+        - mkdir -p /host/var/lib/node-data && echo "FLAG{pr1v1l3g3d_p0d_h0stp4th_3sc4p3}" > /host/var/lib/node-data/flag.txt
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - name: host-root
+          mountPath: /host
+      resources:
+        requests: { cpu: "50m", memory: "32Mi" }
+        limits: { cpu: "100m", memory: "64Mi" }
+  containers:
+    - name: legacy-worker
+      image: ctf/escape-zone:latest
+      imagePullPolicy: IfNotPresent
+      command: ["sh", "-c", "sleep infinity"]
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - name: host-root
+          mountPath: /host
+      resources:
+        requests: { cpu: "50m", memory: "32Mi" }
+        limits: { cpu: "100m", memory: "64Mi" }
+  volumes:
+    - name: host-root
+      hostPath:
+        path: /
+        type: Directory
