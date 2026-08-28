@@ -4,9 +4,9 @@ Reusable training material for Django backend security and Kubernetes-oriented C
 
 ## Sections
 
-1. `presentation.html` and `presentation-*.md` contain the slide deck and speaker support material.
-2. `manage.py`, `security_lab/`, `demos/`, `templates/`, and `demo_files/` contain the guided Django demos.
-3. `challenge_1/` and `challenge_2/` contain standalone whitebox challenges.
+1. `presentation.html` contains the self-contained slide deck.
+2. `RUNBOOK.md`, `manage.py`, `security_lab/`, `demos/`, `templates/`, and `demo_files/` contain the guided Django demos.
+3. `challenge_1/` and `challenge_2/` contain standalone whitebox challenges with local writeups.
 4. `CTF/` contains the Kubernetes blackbox CTF stack.
 
 ## Run the guided demos
